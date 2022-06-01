@@ -30,3 +30,10 @@ def test_タスクの期限が切れているかどうかを判断する():
     tasks = asana.get_today_tasks(member)
 
     assert tasks[0].is_passed_deadline() == False
+
+def test_遅れている今日のタスク一覧を取得する():
+    asana = AsanaAPIClient()
+    member = Member(0, '鳥越', '1202070137346385', 'C03HQJRTXN1')
+    tasks = asana.get_today_tasks(member, is_delayed_task_only=True)
+
+    assert tasks[0].name == "[院試] 検定料3万振込み"

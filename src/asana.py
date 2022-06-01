@@ -25,7 +25,7 @@ class AsanaAPIClient():
         )
         return tasks
 
-    def get_today_tasks(self, member):
+    def get_today_tasks(self, member, is_delayed_task_only=False):
         project_id = member.asana_id
         tasks_json = self.get_tasks_json(project_id)
         tasks = []
@@ -37,7 +37,11 @@ class AsanaAPIClient():
                 due_on = task_json['due_on']
                 due_at = task_json['due_at']
                 task = AsanaTask(task_id, name, member, due_on, due_at, section) 
-                tasks.append(task)
+                if is_delayed_task_only:
+                    if task.is_passed_deadline():
+                        tasks.append(task)
+                else:
+                    tasks.append(task)
         return tasks
 
 class AsanaTask():
