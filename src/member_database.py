@@ -2,7 +2,7 @@ import sqlite3
 
 class MemberDatabase():
     def __init__(self):        
-        self.dbname = 'asana_alart.db'
+        self.dbname = './resources/asana_alart.db'
         conn = sqlite3.connect(self.dbname)
         cur = conn.cursor()
         cur.execute(
