@@ -25,7 +25,8 @@ class AsanaAPIClient():
         )
         return tasks
 
-    def get_today_tasks(self, project_id):
+    def get_today_tasks(self, member):
+        project_id = member.asana_id
         tasks_json = self.get_tasks_json(project_id)
         tasks = []
         for task_json in tasks_json:
@@ -35,14 +36,15 @@ class AsanaAPIClient():
                 name = task_json['name']
                 due_on = task_json['due_on']
                 due_at = task_json['due_at']
-                task = AsanaTask(task_id, name, due_on, due_at, section) 
+                task = AsanaTask(task_id, name, member, due_on, due_at, section) 
                 tasks.append(task)
         return tasks
 
 class AsanaTask():
-    def __init__(self, task_id, name, due_on, due_at, section):
+    def __init__(self, task_id, name, member, due_on, due_at, section):
         self.task_id = task_id
         self.name = name
+        self.member = member
         self.due_on = self.convert2datetime(due_on, due_at)
         self.section = section
 
