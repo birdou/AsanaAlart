@@ -33,7 +33,6 @@ class FailedTaskStorage():
         data = (task_id,)
         cur.execute(sql, data)
 
-        conn.commit()
         conn.close
 
         result = cur.fetchall()
