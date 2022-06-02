@@ -5,6 +5,7 @@ from src.proxy import ProxySwitch
 
 class AsanaAlart():
     def main(self):
+        print("Asana アラートを起動しました ...")
         member_database = MemberDatabase()
         members = member_database.get_members()
         task_storage = FailedTaskStorage()
