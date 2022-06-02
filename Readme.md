@@ -5,8 +5,9 @@
 #### 起動方法
 1. このReadmeがあるディレクトリに移動する
 2. docker-compose up -d --build
-3. docker-compose exec python3 bash
-4. python main.py &
+
+#### コンテナの中に入る方法
+1. docker-compose exec python3 bash 
 
 #### 停止方法
 - pythonプログラムを停止したいとき
