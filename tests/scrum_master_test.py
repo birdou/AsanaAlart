@@ -1,7 +1,9 @@
 from src.scrum_master import ScrumMaster
 from src.member_database import MemberDatabase
 from src.task_storage import FailedTaskStorage
+import pytest
 
+@pytest.mark.asana
 def test_全員の遅れている今日のスケジュールを取得する():
     memberDB = MemberDatabase()
     members = memberDB.get_members()

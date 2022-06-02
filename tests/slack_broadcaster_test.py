@@ -3,6 +3,7 @@ from src.asana_client import AsanaTask
 from src.member_database import Member
 import os
 from dotenv import load_dotenv
+import pytest
 
 load_dotenv()
 is_use_proxy = os.getenv('IS_USE_PROXY')
@@ -13,6 +14,7 @@ else:
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)
 
+@pytest.mark.slack
 def test_メッセージ送信後の応答ステータスがokであることを確認する():
     broadcaster = SlackBroadcaster()
     channel_id = 'C03HQJRTXN1'
@@ -20,6 +22,7 @@ def test_メッセージ送信後の応答ステータスがokであることを
     is_ok = broadcaster.broadcast_message(channel_id, message)
     assert is_ok == True
 
+@pytest.mark.slack
 def test_送信メッセージの内容が次のような形式になっていることを確認する():
     broadcaster = SlackBroadcaster()
 

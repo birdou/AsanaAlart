@@ -2,6 +2,7 @@ from src.asana_client import AsanaAPIClient, AsanaSectionNameValidator
 from src.member_database import Member
 import os
 from dotenv import load_dotenv
+import pytest
 
 load_dotenv()
 is_use_proxy = os.getenv('IS_USE_PROXY')
@@ -22,6 +23,7 @@ def test_セクション名からtoday_todoセクションかどうかを判断�
     is_today = validator.is_today_task_name("Todo")
     assert is_today == False
 
+@pytest.mark.asana
 def test_タスク名を取得する():
     asana = AsanaAPIClient()
     member = Member(0, '鳥越', '1202070137346385', 'C03HQJRTXN1')
@@ -29,6 +31,7 @@ def test_タスク名を取得する():
     task_name = tasks[0].name
     assert task_name == '[院試] 344円切手購入'
 
+@pytest.mark.asana
 def test_タスクの期限に日付のみが指定されている時のタスク期限を取得する():
     asana = AsanaAPIClient()
     member = Member(0, '鳥越', '1202070137346385', 'C03HQJRTXN1')
@@ -36,6 +39,7 @@ def test_タスクの期限に日付のみが指定されている時のタス�
     due_on = tasks[0].due_on
     assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-04 00:00:00'
 
+@pytest.mark.asana
 def test_タスクの期限が切れているかどうかを判断する():
     asana = AsanaAPIClient()
     member = Member(0, '鳥越', '1202070137346385', 'C03HQJRTXN1')
@@ -43,6 +47,7 @@ def test_タスクの期限が切れているかどうかを判断する():
 
     assert tasks[0].is_passed_deadline() == False
 
+@pytest.mark.asana
 def test_遅れている今日のタスク一覧を取得する():
     asana = AsanaAPIClient()
     member = Member(0, '鳥越', '1202070137346385', 'C03HQJRTXN1')

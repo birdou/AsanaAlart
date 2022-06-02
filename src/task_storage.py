@@ -1,9 +1,10 @@
 import sqlite3
 import os
+from pathlib import Path
 
 class FailedTaskStorage():
     def __init__(self):        
-        self.dbname = os.path.dirname(os.path.abspath('__file__')) + 'resources/asana_alart.db'
+        self.dbname = (Path(os.path.dirname(os.path.abspath('__file__'))) / 'resources/asana_alart.db').absolute()
         conn = sqlite3.connect(self.dbname)
         cur = conn.cursor()
         cur.execute(
