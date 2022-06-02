@@ -1,5 +1,17 @@
 from src.asana_client import AsanaAPIClient, AsanaSectionNameValidator
 from src.member_database import Member
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+is_use_proxy = os.getenv('IS_USE_PROXY')
+print(is_use_proxy)
+if is_use_proxy == 'True':
+    os.environ['http_proxy'] = os.getenv('HTTP_PROXY')
+    os.environ['https_proxy'] = os.getenv('HTTPS_PROXY')
+else:
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)
 
 def test_セクション名からtoday_todoセクションかどうかを判断する():
     validator = AsanaSectionNameValidator()
