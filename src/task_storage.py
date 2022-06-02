@@ -1,8 +1,9 @@
 import sqlite3
+import os
 
 class FailedTaskStorage():
     def __init__(self):        
-        self.dbname = '../resources/asana_alart.db'
+        self.dbname = os.path.dirname(os.path.abspath('__file__')) + 'resources/asana_alart.db'
         conn = sqlite3.connect(self.dbname)
         cur = conn.cursor()
         cur.execute(
