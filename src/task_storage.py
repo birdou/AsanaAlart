@@ -4,7 +4,6 @@ from pathlib import Path
 class FailedTaskStorage():
     def __init__(self):        
         self.dbname = str(Path(__file__).resolve().parents[1] / 'resources/asana_alart.db')
-        print(self.dbname)
         conn = sqlite3.connect(self.dbname)
         cur = conn.cursor()
         cur.execute(
