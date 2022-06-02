@@ -1,6 +1,3 @@
-import sys
-import os
-from dotenv import load_dotenv
 from src.member_database import MemberDatabase
 from src.scrum_master import ScrumMaster
 from src.task_storage import FailedTaskStorage
