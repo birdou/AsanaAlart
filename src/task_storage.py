@@ -8,7 +8,7 @@ class FailedTaskStorage():
         conn = sqlite3.connect(self.dbname)
         cur = conn.cursor()
         cur.execute(
-            'CREATE TABLE IF NOT EXISTS failed_tasks(task_id INTEGER PRIMARY KEY)')
+            'CREATE TABLE IF NOT EXISTS failed_tasks(task_id INTEGER PRIMARY KEY, is_done INTEGER)')
         conn.commit()
         conn.close()
 
@@ -17,11 +17,11 @@ class FailedTaskStorage():
         cur = conn.cursor()
 
         sql = """
-        insert into failed_tasks (task_id)
-        select ?
+        insert into failed_tasks (task_id, is_done)
+        select ?, ?
         where NOT EXISTS (select 1 from failed_tasks where task_id=?)
         """
-        data = (task_id,task_id)
+        data = (task_id, 0, task_id)
         cur.execute(sql, data)
 
         conn.commit()
@@ -47,6 +47,37 @@ class FailedTaskStorage():
         sql = 'DELETE FROM failed_tasks WHERE task_id = ?'
         data = (task_id,)
         cur.execute(sql, data)
+
+        conn.commit()
+        conn.close
+    
+    def set_done_labels(self):
+        conn = sqlite3.connect(self.dbname)
+        cur = conn.cursor()
+
+        sql = 'UPDATE failed_tasks SET is_done = 1'
+        cur.execute(sql)
+
+        conn.commit()
+        conn.close
+
+    def set_undone_label(self, task_id):
+        conn = sqlite3.connect(self.dbname)
+        cur = conn.cursor()
+
+        sql = 'UPDATE failed_tasks SET is_done = 0 WHERE task_id = ?'
+        data = (task_id,)
+        cur.execute(sql, data)
+
+        conn.commit()
+        conn.close
+    
+    def remove_done_tasks(self):
+        conn = sqlite3.connect(self.dbname)
+        cur = conn.cursor()
+
+        sql = 'DELETE FROM failed_tasks WHERE is_done = 1'
+        cur.execute(sql)
 
         conn.commit()
         conn.close

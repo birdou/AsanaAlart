@@ -17,9 +17,11 @@ class ScrumMaster():
 
     def start_check_progress_cycle(self, interval_minute):
         while(True):
+            self.task_storage.set_done_labels()
             tasks = self.get_all_delayed_tasks()
             for task in tasks:
                 self.deal_with_task_problem(task)
+            self.task_storage.remove_done_tasks()
             time.sleep(60*interval_minute)
 
     def deal_with_task_problem(self, task):
@@ -27,7 +29,7 @@ class ScrumMaster():
             self.slackBroadcaster.broadcaset_alart(task)
             self.task_storage.add_failed_task_id(task.task_id)
         else:
-            pass
+            self.task_storage.set_undone_label(task.task_id)
 
     def is_new_delayed_task(self, task):
         return not self.task_storage.is_failed_task_id(task.task_id)
