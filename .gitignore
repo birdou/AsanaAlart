@@ -2,3 +2,6 @@
 
 __pycache__/
 *.db
+
+.bash_history
+.cache/
