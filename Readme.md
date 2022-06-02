@@ -7,7 +7,7 @@
 2. docker-compose up -d --build
 
 #### コンテナの中に入る方法
-1. docker-compose exec python3 bash 
+1. docker-compose exec asana bash 
 
 #### 停止方法
 - pythonプログラムを停止したいとき
@@ -16,4 +16,4 @@
    
 - コンテナを停止したいとき
   1. exit
-  2. docker-compose rm -fsv python3
+  2. docker-compose rm -fsv asana
