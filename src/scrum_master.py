@@ -25,8 +25,9 @@ class ScrumMaster():
     def deal_with_task_problem(self, task):
         if self.is_new_delayed_task(task):
             self.slackBroadcaster.broadcaset_alart(task)
-        else:
             self.task_storage.add_failed_task_id(task.task_id)
+        else:
+            pass
 
     def is_new_delayed_task(self, task):
         return not self.task_storage.is_failed_task_id(task.task_id)
