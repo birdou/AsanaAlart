@@ -18,7 +18,8 @@ class AsanaAPIClient():
                     'this.due_on',
                     'this.due_at',
                     'this.start_on',
-                    'this.memberships.section.name'
+                    'this.memberships.section.name',
+                    'this.completed'
                 ],
                 'project': project_id
             }
@@ -36,7 +37,8 @@ class AsanaAPIClient():
                 name = task_json['name']
                 due_on = task_json['due_on']
                 due_at = task_json['due_at']
-                task = AsanaTask(task_id, name, member, due_on, due_at, section) 
+                is_completed = task_json['completed']
+                task = AsanaTask(task_id, name, member, due_on, due_at, section, is_completed) 
                 if is_delayed_task_only:
                     if task.is_passed_deadline():
                         tasks.append(task)
@@ -45,12 +47,13 @@ class AsanaAPIClient():
         return tasks
 
 class AsanaTask():
-    def __init__(self, task_id, name, member, due_on, due_at, section):
+    def __init__(self, task_id, name, member, due_on, due_at, section, is_completed):
         self.task_id = task_id
         self.name = name
         self.member = member
         self.due_on = self.convert2datetime(due_on, due_at)
         self.section = section
+        self.is_completed = is_completed
 
     def convert2datetime(self, due_on, due_at):
         if due_on is None:
@@ -69,6 +72,8 @@ class AsanaTask():
         return date
 
     def is_passed_deadline(self):
+        if self.is_completed:
+            return False
         now = datetime.datetime.now()
         return self.due_on < now
 
