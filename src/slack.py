@@ -1,4 +1,3 @@
-from numpy import broadcast
 import requests
 from dotenv import load_dotenv
 import os

@@ -2,7 +2,7 @@ import sqlite3
 
 class FailedTaskStorage():
     def __init__(self):        
-        self.dbname = './resources/asana_alart.db'
+        self.dbname = '../resources/asana_alart.db'
         conn = sqlite3.connect(self.dbname)
         cur = conn.cursor()
         cur.execute(

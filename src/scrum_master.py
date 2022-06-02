@@ -1,6 +1,5 @@
-from sympy import solve
-from src.asana import AsanaAPIClient
-from src.slack import SlackBroadcaster
+from asana_client import AsanaAPIClient
+from slack import SlackBroadcaster
 import time
 
 class ScrumMaster():

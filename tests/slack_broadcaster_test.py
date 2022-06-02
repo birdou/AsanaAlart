@@ -1,5 +1,5 @@
 from src.slack import SlackBroadcaster
-from src.asana import AsanaTask
+from src.asana_client import AsanaTask
 from src.member_database import Member
 
 def test_メッセージ送信後の応答ステータスがokであることを確認する():

@@ -1,4 +1,4 @@
-from src.asana import AsanaAPIClient, AsanaSectionNameValidator
+from src.asana_client import AsanaAPIClient, AsanaSectionNameValidator
 from src.member_database import Member
 
 def test_セクション名からtoday_todoセクションかどうかを判断する():
