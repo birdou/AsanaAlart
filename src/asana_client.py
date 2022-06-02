@@ -70,8 +70,6 @@ class AsanaTask():
 
     def is_passed_deadline(self):
         now = datetime.datetime.now()
-        print(self.due_on)
-        print(now)
         return self.due_on < now
 
 class AsanaSectionNameValidator():
