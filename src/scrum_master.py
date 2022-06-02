@@ -1,13 +1,13 @@
-from asana_client import AsanaAPIClient
-from slack import SlackBroadcaster
+from . import asana_client as ac
+from . import slack
 import time
 
 class ScrumMaster():
     def __init__(self, members, task_storage):
         self.members = members
         self.task_storage = task_storage
-        self.asanaClient = AsanaAPIClient()
-        self.slackBroadcaster = SlackBroadcaster()
+        self.asanaClient = ac.AsanaAPIClient()
+        self.slackBroadcaster = slack.SlackBroadcaster()
     
     def get_all_delayed_tasks(self):
         tasks = []
