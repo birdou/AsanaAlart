@@ -33,12 +33,12 @@ def test_タスクの期限に日付のみが指定されている時のタス�
     member = Member(0, '田中', '1202120929387852', 'C03HQJRTXN1')
     task= AsanaTask(0, 'テストタスク', member, '2022-06-02', None, "Today's Task", False)
     due_on = task.due_on
-    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-03 00:00:00'
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-03 09:00:00'
 
 def test_タスクの期限が切れているかどうかを判断する():
     member = Member(0, '田中', '1202120929387852', 'C03HQJRTXN1')
+    
     task = AsanaTask(0, 'テストタスク', member, '2022-06-02', None, "Today's Task", False)
-
     assert task.is_passed_deadline() == True
 
 @pytest.mark.asana
