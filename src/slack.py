@@ -20,8 +20,12 @@ class SlackBroadcaster():
         is_ok = response['ok']
         return is_ok
 
+    def create_alart_message(self, task):
+        alart = "%s: 「%s」が未完了。Help me!" % (task.member.name, task.name)
+        return alart
+
     def broadcaset_alart(self, task):
-        alart = "[%s]: 「%s」が未完了。" % (task.member.name, task.name)
         channel_id = task.member.slack_id
+        alart = self.create_alart_message(task)
         self.broadcast_message(channel_id, alart)
         return alart
