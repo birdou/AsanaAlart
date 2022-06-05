@@ -2,10 +2,9 @@
 
 ## 操作方法
 
-#### 起動方法
-1. このReadmeがあるディレクトリに移動する
-2. docker-compose up -d --build
 
+#### 起動方法
+  1. sudo sh restart.sh
 #### コンテナの中に入る方法
 1. docker-compose exec asana bash 
 
