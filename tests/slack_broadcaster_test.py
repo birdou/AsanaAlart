@@ -18,7 +18,7 @@ def test_メッセージ送信後の応答ステータスがokであることを
 def test_メッセージが送信できることを確認する():
     broadcaster = SlackBroadcaster()
 
-    member = Member(0, '田中', '1202070137346385', 'C03HQJRTXN1')
+    member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     task = AsanaTask(0, '推薦書を提出する', member, '2021-06-01', None, "Today's Todo", False)
     expected_message = '田中: 「推薦書を提出する」が未完了。Help me!'
 
@@ -27,7 +27,7 @@ def test_メッセージが送信できることを確認する():
 def test_送信メッセージの内容が次のような形式になっていることを確認する():
     broadcaster = SlackBroadcaster()
 
-    member = Member(0, '田中', '1202070137346385', 'C03HQJRTXN1')
+    member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     task = AsanaTask(0, '推薦書を提出する', member, '2021-06-01', None, "Today's Todo", False)
     expected_message = '田中: 「推薦書を提出する」が未完了。Help me!'
 

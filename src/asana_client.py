@@ -3,12 +3,16 @@ import datetime
 from dotenv import load_dotenv
 import os
 
+from src.member_database import MemberDatabase
+
 class AsanaAPIClient():
     def __init__(self):
         load_dotenv()
         PERSONAL_ACCESS_TOKEN=os.getenv('PERSONAL_ACCESS_TOKEN')
         self.client = asana.Client.access_token(PERSONAL_ACCESS_TOKEN)
         self.section_validator = AsanaSectionNameValidator()
+
+        self.member_db = MemberDatabase()
 
     def get_tasks_json(self, project_id):
         tasks = self.client.tasks.get_tasks(
@@ -19,7 +23,8 @@ class AsanaAPIClient():
                     'this.due_at',
                     'this.start_on',
                     'this.memberships.section.name',
-                    'this.completed'
+                    'this.completed',
+                    'this.assignee',
                 ],
                 'project': project_id
             }
@@ -27,24 +32,35 @@ class AsanaAPIClient():
         return tasks
 
     def get_today_tasks(self, member, is_delayed_task_only=False):
-        project_id = member.asana_id
+        project_id = member.asana_project_id
         tasks_json = self.get_tasks_json(project_id)
         tasks = []
         for task_json in tasks_json:
             section = task_json['memberships'][0]['section']['name']
             if self.section_validator.is_today_task_name(section):
-                task_id = task_json['gid']
-                name = task_json['name']
-                due_on = task_json['due_on']
-                due_at = task_json['due_at']
-                is_completed = task_json['completed']
-                task = AsanaTask(task_id, name, member, due_on, due_at, section, is_completed) 
+                task = self.convert2task(task_json, member, section)
                 if is_delayed_task_only:
                     if task.is_passed_deadline():
                         tasks.append(task)
                 else:
                     tasks.append(task)
         return tasks
+
+    def convert2task(self, task_json, project_member, section):
+        task_id = task_json['gid']
+        name = task_json['name']
+        due_on = task_json['due_on']
+        due_at = task_json['due_at']
+        is_completed = task_json['completed']
+        try:
+            assignee_id = int(task_json['assignee']['gid'])
+            member = self.member_db.get_member(assignee_id)
+            if member is None:
+                member = project_member
+        except TypeError:
+            member = project_member
+        task = AsanaTask(task_id, name, member, due_on, due_at, section, is_completed) 
+        return task
 
 class AsanaTask():
     def __init__(self, task_id, name, member, due_on, due_at, section, is_completed):
