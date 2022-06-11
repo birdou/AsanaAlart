@@ -1,8 +1,6 @@
 import sqlite3
 from pathlib import Path
 
-from matplotlib.pyplot import get
-
 class MemberDatabase():
     def __init__(self):        
         self.dbname = str(Path(__file__).resolve().parents[1] / 'resources/asana_alart.db')
