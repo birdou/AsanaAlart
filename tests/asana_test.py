@@ -36,6 +36,12 @@ def test_タスクの期限に日付のみが指定されている時のタス�
     due_on = task.due_on
     assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-03 09:00:00'
 
+def test_タスクの期限に時刻指定されている時のタスク期限を取得する():
+    member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
+    task= AsanaTask(0, 'テストタスク', member, '2022-07-07', '2022-07-07T04:00:00.000Z', "Today's Task", False)
+    due_on = task.due_on
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-07-07 13:00:00'
+
 def test_タスクの期限が切れているかどうかを判断する():
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     
