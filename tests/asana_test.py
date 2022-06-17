@@ -34,7 +34,7 @@ def test_タスクの期限に日付のみが指定されている時のタス�
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     task= AsanaTask(0, 'テストタスク', member, '2022-06-02', None, "Today's Task", False)
     due_on = task.due_on
-    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-03 09:00:00'
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-03 13:00:00'
 
 def test_タスクの期限に時刻指定されている時のタスク期限を取得する():
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
@@ -46,25 +46,25 @@ def test_タスクの期限に時刻指定されていなくて金曜日の時�
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     task= AsanaTask(0, 'テストタスク', member, '2022-06-10', None, "Today's Task", False)
     due_on = task.due_on
-    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-13 09:00:00'
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-13 13:00:00'
 
 def test_タスクの期限に時刻指定されていなくて日曜日の時のタスク期限を取得する():
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     task= AsanaTask(0, 'テストタスク', member, '2022-06-12', None, "Today's Task", False)
     due_on = task.due_on
-    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-13 09:00:00'
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-13 13:00:00'
 
 def test_タスクの期限に時刻指定されていなくて月曜日の時のタスク期限を取得する():
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
     task= AsanaTask(0, 'テストタスク', member, '2022-06-13', None, "Today's Task", False)
     due_on = task.due_on
-    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-14 09:00:00'
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-14 13:00:00'
 
 def test_タスクの期限に時刻指定されていて金曜日の時のタスク期限を取得する():
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')
-    task= AsanaTask(0, 'テストタスク', member, '2022-06-10', '2022-06-10T04:00:00.000Z', "Today's Task", False)
+    task= AsanaTask(0, 'テストタスク', member, '2022-06-10', '2022-06-10T05:00:00.000Z', "Today's Task", False)
     due_on = task.due_on
-    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-10 13:00:00'
+    assert due_on.strftime('%Y-%m-%d %H:%M:%S') == '2022-06-10 14:00:00'
 
 def test_タスクの期限が切れているかどうかを判断する():
     member = Member(0, '田中', asana_project_id='1202120929387852', asana_user_id='1202098038140491', slack_id='C03HQJRTXN1')

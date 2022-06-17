@@ -84,8 +84,8 @@ class AsanaTask():
                 # 金曜日から日曜日の場合
                 if 4 <= weekday: 
                     days = 7 - weekday
-                # 翌日の9時が期限に設定されるようにした
-                date = date + datetime.timedelta(days=days) + datetime.timedelta(hours=9)
+                # 翌日の13時が期限に設定されるようにした
+                date = date + datetime.timedelta(days=days) + datetime.timedelta(hours=13)
             else:
                 # 時刻まで期限に設定されている場合
                 date = datetime.datetime.strptime(due_at, '%Y-%m-%dT%H:%M:%S.000Z')
