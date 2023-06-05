@@ -10,11 +10,31 @@ proxy = ProxySwitch()
 def test_メッセージ送信後の応答ステータスがokであることを確認する():
     broadcaster = SlackBroadcaster()
     channel_id = 'C03HQJRTXN1'
-    message = 'testメッセージ'
+    message = '<@U02PNA3JPKN> @U02PNA3JPKN>' #'<!channel>'
+    # ブラウザ data-message-senderを探せばよい
     is_ok = broadcaster.broadcast_message(channel_id, message)
     assert is_ok == True
 
+import os
+from dotenv import load_dotenv
+import requests
+
+def broadcast_user_id_list():
+    load_dotenv()
+    SLACK_TOKEN = os.getenv('SLACK_TOKEN')
+    url = "https://slack.com/api/users.list"
+    headers = {"Authorization": "Bearer " + SLACK_TOKEN}
+    CHANNEL = 'C03HQJRTXN1'
+    r = requests.post(url, headers=headers)
+    response = r.json()
+    return response
+
 @pytest.mark.slack
+def test_メンバーのユーザーidを取得する():
+    res = broadcast_user_id_list()
+    print(res)
+
+#@pytest.mark.slack
 def test_メッセージが送信できることを確認する():
     broadcaster = SlackBroadcaster()
 
