@@ -1,0 +1,10 @@
+name: Test Runner
+on: push
+
+jobs:
+  pytest:
+    runs-on: ubuntu-20.04
+    image: Dockerfile
+    steps:
+      - name: run pytest
+        run: pytest
