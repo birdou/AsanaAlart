@@ -7,7 +7,38 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Run docker-compose and run pytest
+      
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3
+
+      - name: Install dependencies
         run: |
-          cd .github/workflows/docker
-          docker-compose up -d --build
+          python -m pip install --upgrade pip
+          pip install --upgrade setuptools
+          pip install asana
+          pip install python-dotenv
+          pip install pytest
+
+      - name: Run pytest
+        run: |
+          pytest --junit-xml results/pytest.xml
+        continue-on-error: true
+
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_results
+          path: results/*.xml
+
+      - name: Download results
+        uses: actions/download-artifact@v3
+        with:
+          name: test_results
+          path: artifacts
+
+      - name: Display results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml
