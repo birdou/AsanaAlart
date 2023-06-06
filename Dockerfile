@@ -1,6 +1,5 @@
 FROM python:3
 USER root
-WORKDIR /root/
 
 RUN apt-get update
 ENV LANG ja_JP.UTF-8

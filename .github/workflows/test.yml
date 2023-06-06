@@ -7,9 +7,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Build docker image
-        run: docker image build -t asana_alart .
-      - name: Start container
-        run: docker run -it --name asana_container -v $PWD/:/root/ asana_alart bash
-      - name: run pytest
-        run: pytest
+      - name: Run docker-compose and run pytest
+        run: |
+          cd .github/workflows/docker
+          docker-compose up -d --build
