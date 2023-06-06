@@ -5,6 +5,8 @@ jobs:
   pytest:
     runs-on: ubuntu-20.04
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
       - name: Build docker image
         run: docker image build -t asana_alart .
       - name: Start container
