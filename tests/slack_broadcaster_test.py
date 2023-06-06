@@ -19,6 +19,7 @@ import os
 from dotenv import load_dotenv
 import requests
 
+@pytest.mark.slack
 def broadcast_user_id_list():
     load_dotenv()
     SLACK_TOKEN = os.getenv('SLACK_TOKEN')
@@ -34,7 +35,7 @@ def test_メンバーのユーザーidを取得する():
     res = broadcast_user_id_list()
     print(res)
 
-#@pytest.mark.slack
+@pytest.mark.slack
 def test_メッセージが送信できることを確認する():
     broadcaster = SlackBroadcaster()
 
