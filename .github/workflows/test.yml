@@ -10,6 +10,6 @@ jobs:
       - name: Build docker image
         run: docker image build -t asana_alart .
       - name: Start container
-        run: docker run --name asana_container -it asana_alart /bin/bash
+        run: docker run -it --name asana_container -v $PWD/:/root/ asana_alart bash
       - name: run pytest
         run: pytest
