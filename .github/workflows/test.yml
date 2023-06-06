@@ -4,7 +4,10 @@ on: push
 jobs:
   pytest:
     runs-on: ubuntu-20.04
-    image: Dockerfile
     steps:
+      - name: Build docker image
+        run: docker image build -t asana_alart .
+      - name: Start container
+        run: docker run --name asana_container -it asana_alart /bin/bash
       - name: run pytest
         run: pytest
